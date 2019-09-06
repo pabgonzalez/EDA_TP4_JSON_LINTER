@@ -5,46 +5,35 @@
 
 using namespace std;
 
-#define MAX_CHAR_NAME	50
 
 eventGenerator::eventGenerator()
 {
-	int open;
-	char archivo[MAX_CHAR_NAME];
 	cout << "JSON Linter" << endl;
 	cout << "Ingrese el nombre del archivo" << endl;
 	cin >> archivo;
-	cout << archivo << endl;
-	open = fopen_s(&archivoJSON, archivo, "r");
-	cout << "Error " << open << endl;
-	if (open != 0)
-	{
-		errorCode = FILE_NOT_OPENED;
-	}
-	else
+	archJSON.open(archivo, ifstream::in);
+	if (archJSON.is_open() == true)
 	{
 		errorCode = NO_ERROR;
 	}
+	else
+	{
+		errorCode = FILE_NOT_OPENED;
+	}
+	cout << "errorCode " << errorCode << endl;
 	lineNumber = 1;
 }
 
 eventGenerator:: ~eventGenerator()
 {
-	if (fclose(archivoJSON) == 0)
-	{
-		errorCode = NO_ERROR;
-	}
-	else
-	{
-		errorCode = FILE_NOT_CLOSED;
-	}
+	archJSON.close();
 }
 
 short eventGenerator::getNextEvent(void)
 {
 	int c;
 	short nextEvent = NO_EVENT;
-	while ( (c = fgetc(archivoJSON)) != EOF && nextEvent == NO_EVENT)
+	while ( (c = archJSON.get()) != EOF && nextEvent == NO_EVENT)
 	{
 		if (c == '\n')
 		{
