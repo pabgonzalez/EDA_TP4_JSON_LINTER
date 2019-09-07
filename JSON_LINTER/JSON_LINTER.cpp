@@ -12,6 +12,8 @@ using namespace std;
 int main()
 {
 	eventGenerator myEvents;
+	//TEST EVENT GENERATOR 
+	/*
 	int lineNumber = 0;
 	cout << "Testing eventGenerator" << endl;
 	cout << myEvents.getError() << endl;
@@ -22,10 +24,13 @@ int main()
 		{
 			if ((lineNumber != myEvents.getLineNumber()))
 			{
-				cout << endl << myEvents.getLineNumber() << "\t";
+				lineNumber++;
+				cout << endl << myEvents.getLineNumber() << "\t\t";
 			}
-			cout << event;
+			cout << (char)event;
 		}
 	}
+	cout << "END Testing eventGenerator" << endl;
+	*/
 }
 

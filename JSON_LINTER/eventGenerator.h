@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum errors { NO_ERROR, FILE_NOT_OPENED, FILE_NOT_CLOSED };
+enum errors { NO_ERROR, FILE_NOT_OPENED };
 enum events { NO_EVENT = -2, END_OF_FILE };
 
 class eventGenerator 

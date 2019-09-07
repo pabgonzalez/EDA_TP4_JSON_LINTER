@@ -1,6 +1,5 @@
 
 #include "eventGenerator.h"
-
 #include <string>
 
 using namespace std;
@@ -20,7 +19,6 @@ eventGenerator::eventGenerator()
 	{
 		errorCode = FILE_NOT_OPENED;
 	}
-	cout << "errorCode " << errorCode << endl;
 	lineNumber = 1;
 }
 
@@ -31,15 +29,16 @@ eventGenerator:: ~eventGenerator()
 
 short eventGenerator::getNextEvent(void)
 {
-	int c;
+	char c;
 	short nextEvent = NO_EVENT;
-	while ( (c = archJSON.get()) != EOF && nextEvent == NO_EVENT)
+	while (archJSON.eof() == false && nextEvent == NO_EVENT)
 	{
+		archJSON.get(c);
 		if (c == '\n')
 		{
 			lineNumber++;
 		}
-		else if (c == ' ')
+		else if (c == ' ' || c == '\t')
 		{
 			//do nothing
 		}
@@ -48,7 +47,7 @@ short eventGenerator::getNextEvent(void)
 			nextEvent = c;
 		}
 	}
-	if (c == EOF)
+	if ( archJSON.eof() == true )
 	{
 		return END_OF_FILE;
 	}
