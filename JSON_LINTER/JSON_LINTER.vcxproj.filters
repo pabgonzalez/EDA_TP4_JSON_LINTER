@@ -21,12 +21,24 @@
     <ClCompile Include="eventGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="jsonFSM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="linter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="genericFSM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="eventGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jsonFSM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="linter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

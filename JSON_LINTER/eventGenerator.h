@@ -18,12 +18,15 @@ public:
 	int getError(void); 
 	int getLineNumber(void);
 	char getChar(void);
-
+	char getCurrentEvent(void);
 private:
 	ifstream archJSON;
 	int lineNumber;
 	int errorCode;
 	char archivo[MAX_CHAR_NAME];
 	char c;
+	int countChars;
+	int countTabs;
+	int countSpaces;
 	eventType event;
 };

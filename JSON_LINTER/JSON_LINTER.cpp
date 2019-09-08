@@ -31,7 +31,5 @@ int main()
 		}
 	}
 	cout << endl << "END Testing eventGenerator" << endl;
-	
-
 }
 

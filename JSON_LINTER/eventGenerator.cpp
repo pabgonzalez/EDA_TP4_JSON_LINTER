@@ -22,6 +22,9 @@ eventGenerator::eventGenerator()
 	lineNumber = 1;
 	event = NO_EVENT;
 	c = 0;
+	countChars = 0;
+	countTabs = 0;
+	countSpaxes = 0;
 }
 
 eventGenerator:: ~eventGenerator()
@@ -35,16 +38,25 @@ short eventGenerator::getNextEvent(void)
 	while (archJSON.eof() == false && event == NO_EVENT)
 	{
 		archJSON.get(c);
-		if (c == '\n')
+		if (c == '\n' || c == '\r')
 		{
 			lineNumber++;
+			countChars = 0;
+			countTabs = 0;
+			countSpaces = 0;
 		}
-		else if (c == ' ' || c == '\t' || c == '\x0D')
+		else if (c == ' ')
 		{
 			//do nothing
+			countSpaces++;
+		}
+		else if (c == '\t')
+		{
+			countTabs++;
 		}
 		else 
 		{
+			countChars++;
 			event = EVENT;
 		}
 	}
@@ -66,6 +78,11 @@ int eventGenerator::getLineNumber(void)
 }
 
 char eventGenerator::getChar(void)
+{
+	return c;
+}
+
+char eventGenerator::getCurrentEvent(void)
 {
 	return c;
 }
