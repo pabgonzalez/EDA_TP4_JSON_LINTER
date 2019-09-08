@@ -1,4 +1,6 @@
 #pragma once
+
+
 /*
 class genericFSM;
 using stateTypes = unsigned int;
@@ -20,6 +22,5 @@ private:
 	const unsigned int rowCount;
 	const unsigned int columnCount;
 	const fsmCell* const FSMTable;
-
 };
 */

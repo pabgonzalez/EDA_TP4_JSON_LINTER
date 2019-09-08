@@ -158,6 +158,9 @@
     <ClInclude Include="eventGenerator.h" />
     <ClInclude Include="genericFSM.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.json" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

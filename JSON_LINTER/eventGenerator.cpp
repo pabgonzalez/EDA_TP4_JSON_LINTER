@@ -8,7 +8,7 @@ using namespace std;
 eventGenerator::eventGenerator()
 {
 	cout << "JSON Linter" << endl;
-	cout << "Ingrese el nombre del archivo" << endl;
+	cout << "Ingrese el nombre del archivo: ";
 	cin >> archivo;
 	archJSON.open(archivo, ifstream::in);
 	if (archJSON.is_open() == true)
@@ -20,6 +20,8 @@ eventGenerator::eventGenerator()
 		errorCode = FILE_NOT_OPENED;
 	}
 	lineNumber = 1;
+	event = NO_EVENT;
+	c = 0;
 }
 
 eventGenerator:: ~eventGenerator()
@@ -29,29 +31,28 @@ eventGenerator:: ~eventGenerator()
 
 short eventGenerator::getNextEvent(void)
 {
-	char c;
-	short nextEvent = NO_EVENT;
-	while (archJSON.eof() == false && nextEvent == NO_EVENT)
+	short event = NO_EVENT;
+	while (archJSON.eof() == false && event == NO_EVENT)
 	{
 		archJSON.get(c);
 		if (c == '\n')
 		{
 			lineNumber++;
 		}
-		else if (c == ' ' || c == '\t')
+		else if (c == ' ' || c == '\t' || c == '\x0D')
 		{
 			//do nothing
 		}
 		else 
 		{
-			nextEvent = c;
+			event = EVENT;
 		}
 	}
 	if ( archJSON.eof() == true )
 	{
-		return END_OF_FILE;
+		event = END_OF_FILE;
 	}
-	return nextEvent;
+	return event;
 }
 
 int eventGenerator::getError(void)
@@ -62,4 +63,9 @@ int eventGenerator::getError(void)
 int eventGenerator::getLineNumber(void)
 {
 	return lineNumber;
+}
+
+char eventGenerator::getChar(void)
+{
+	return c;
 }

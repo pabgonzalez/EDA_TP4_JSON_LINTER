@@ -13,24 +13,25 @@ int main()
 {
 	eventGenerator myEvents;
 	//TEST EVENT GENERATOR 
-	/*
+	
 	int lineNumber = 0;
 	cout << "Testing eventGenerator" << endl;
-	cout << myEvents.getError() << endl;
+	cout << "errorCode " << myEvents.getError() << endl;
 	if (myEvents.getError() == NO_ERROR) {
 		cout << "Line Number\tCharacters";
 		short event;
-		while ((event = myEvents.getNextEvent()) != END_OF_FILE)
+		while ( (event = myEvents.getNextEvent()) != END_OF_FILE)
 		{
 			if ((lineNumber != myEvents.getLineNumber()))
 			{
 				lineNumber++;
 				cout << endl << myEvents.getLineNumber() << "\t\t";
 			}
-			cout << (char)event;
+			cout << myEvents.getChar();
 		}
 	}
-	cout << "END Testing eventGenerator" << endl;
-	*/
+	cout << endl << "END Testing eventGenerator" << endl;
+	
+
 }
 
