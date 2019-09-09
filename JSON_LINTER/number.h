@@ -1,5 +1,6 @@
 #pragma once
 #include "eventGenerator.h"
+#include "genericFSM.h"
 
 typedef enum {INIT,INT,SIGN_INT,CERO,POINT,FRACTION,E,SIGN_EXP,EXP,ERROR,OK}stateNumberType;
 enum EVENTS_FOR_NUMBER {ONENINE,CERO,SIGN_MINUS,SIGN_PLUS,POINT,E,OTHER};
@@ -11,7 +12,7 @@ typedef struct
 	void (*action) (void);
 }cellType;
 
-class numberFSM
+class numberFSM : public genericFSM
 {
 public:
 	numberFSM(eventGenerator*);
@@ -20,8 +21,6 @@ public:
 	void cycle(void);
 private:
 	stateNumberType state;
-	eventGenerator* events;
-	bool errorStatus;
 										//ONENINE			//CERO				//SIGN_MINUS		//SIGN_PLUS				//POINT				//E					//OTHER
 	const cellType tableFSM[11][7] = {
 										{ {INT,nothing()},	{CERO, nothing()}, {SIGN_INT,nothing()},	{ERROR,error()},	{ERROR,error()}	,	{ERROR,error()},	{ERROR,error()}	},		//INIT

@@ -1,5 +1,6 @@
 #include "number.h"
 
+
 numberFSM::numberFSM(eventGenerator* eventG)
 {
 	events = eventG;
@@ -16,7 +17,7 @@ void numberFSM::error(void)
 
 void numberFSM::cycle(void)
 {
-	while (events->getNextEvent != END_OF_FILE && errorStatus == false)
+	do
 	{
 		if (events->getCurrentEvent() >= '1' && events->getCurrentEvent() <= '9')
 		{
@@ -53,5 +54,7 @@ void numberFSM::cycle(void)
 			tableFSM[state][OTHER].action();
 			state = tableFSM[state][OTHER].nextState;
 		}
-	}
+	} while (events->getNextEvent != END_OF_FILE && errorStatus == false);
 }
+
+
