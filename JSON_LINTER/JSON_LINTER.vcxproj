@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="arrayFSM.cpp" />
     <ClCompile Include="eventGenerator.cpp" />
+    <ClCompile Include="genericFSM.cpp" />
     <ClCompile Include="jsonFSM.cpp" />
     <ClCompile Include="JSON_LINTER.cpp" />
     <ClCompile Include="linter.cpp" />

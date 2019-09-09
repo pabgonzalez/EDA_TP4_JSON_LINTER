@@ -1,5 +1,6 @@
 #pragma once
 #include "eventGenerator.h"
+#include "genericFSM.h"
 
 #define TX(x) ((static_cast)<void (objectFSM::*)(void)>(&objectFSM:: x))
 
@@ -12,7 +13,7 @@ typedef struct
 	void (*action) (void);
 }cellType;
 
-class objectFSM
+class objectFSM : public genericFSM
 {
 public:
 	objectFSM(eventGenerator*);
@@ -26,8 +27,6 @@ public:
 
 private:
 	stateObjectType state;
-	eventGenerator* events;
-	bool errorStatus;
 	//									 QUOTE					BRACE			COMA				   COLON			    OTHER
 	const cellType tableFSM[5][5] = { { {STRING, checkString}, {OK, nothing},  {ERROR, error},		  {ERROR, error},	   {ERROR, error} },		//INIT
 									  { {ERROR, error},		   {ERROR, error}, {ERROR, error},		  {VALUE, checkValue}, {ERROR, error} },		//STRING

@@ -1,5 +1,6 @@
 #pragma once
 #include "eventGenerator.h"
+#include "genericFSM.h"
 
 #define TX(x) ((static_cast)<void (arrayFSM::*)(void)>(&arrayFSM:: x))
 
@@ -12,7 +13,7 @@ typedef struct
 	void (*action) (void);
 }cellType;
 
-class arrayFSM
+class arrayFSM : public genericFSM
 {
 public:
 	arrayFSM(eventGenerator*);
@@ -25,8 +26,6 @@ public:
 
 private:
 	stateArrayType state;
-	eventGenerator* events;
-	bool errorStatus;
 	//									 COMA				  NO_COMA			   BRACKET
 	const cellType tableFSM[4][3] = { { {ERROR, error},		 {VALUE, checkValue}, {OK, nothing} },		//INIT
 									  {	{VALUE, checkValue}, {ERROR, error},	  {OK, nothing} },		//VALUE

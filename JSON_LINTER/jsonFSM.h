@@ -1,5 +1,6 @@
 #pragma once
 #include "eventGenerator.h"
+#include "genericFSM.h"
 
 #define TX(x) ((static_cast)<void (jsonFSM::*)(void)>(&jsonFSM:: x))
 
@@ -12,7 +13,7 @@ typedef struct
 	void (*action) (void);
 }cellType;
 
-class jsonFSM
+class jsonFSM : public genericFSM
 {
 public:
 	jsonFSM(eventGenerator*);
@@ -24,8 +25,6 @@ public:
 	void cycle(void);
 private:
 	stateJSONType state;
-	eventGenerator* events;
-	bool errorStatus;
 										//NOCOMA				COMA	
 	const cellType tableFSM[4][2] = {{{ELEMENT, &element} ,		{ERROR,error()}  },				//INIT
 									{ {ERROR,error()},			{COMA,coma()}    },				//ELEMENT
