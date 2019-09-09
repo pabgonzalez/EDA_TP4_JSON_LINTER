@@ -9,7 +9,7 @@ arrayFSM::arrayFSM(eventGenerator* eventG)
 
 void arrayFSM::cycle(void)
 {
-	while (events->getNextEvent != END_OF_FILE && error == false)
+	while (events->getNextEvent != END_OF_FILE && errorStatus == false)
 	{
 		if (events->getCurrentEvent() == ',')
 		{

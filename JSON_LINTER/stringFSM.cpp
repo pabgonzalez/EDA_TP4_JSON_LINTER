@@ -9,7 +9,7 @@ stringFSM::stringFSM(eventGenerator* eventG)
 
 void stringFSM::cycle(void)
 {
-	while (events->getNextEvent != END_OF_FILE && error == false)
+	while (events->getNextEvent != END_OF_FILE && errorStatus == false)
 	{
 		if (events->getCurrentEvent() == '"')
 		{
