@@ -1,4 +1,3 @@
-
 #include "eventGenerator.h"
 #include <string>
 
@@ -24,7 +23,7 @@ eventGenerator::eventGenerator()
 	c = 0;
 	countChars = 0;
 	countTabs = 0;
-	countSpaxes = 0;
+	countSpaces = 0;
 }
 
 eventGenerator:: ~eventGenerator()
@@ -63,6 +62,7 @@ short eventGenerator::getNextEvent(void)
 	if ( archJSON.eof() == true )
 	{
 		event = END_OF_FILE;
+		c = END_OF_FILE;
 	}
 	return event;
 }

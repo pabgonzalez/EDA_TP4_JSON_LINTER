@@ -4,21 +4,22 @@
 #include <iostream>
 #include <string>
 #include "eventGenerator.h"
+#include "stringFSM.h"
+#include "genericFSM.h"
 
 using namespace std;
-
 
 
 int main()
 {
 	eventGenerator myEvents;
+
 	//TEST EVENT GENERATOR 
-	
-	int lineNumber = 0;
-	cout << "Testing eventGenerator" << endl;
-	cout << "errorCode " << myEvents.getError() << endl;
+	/*int lineNumber = 0;
+	cout << "testing eventgenerator" << endl;
+	cout << "errorcode " << myEvents.getError() << endl;
 	if (myEvents.getError() == NO_ERROR) {
-		cout << "Line Number\tCharacters";
+		cout << "line number\tcharacters";
 		short event;
 		while ( (event = myEvents.getNextEvent()) != END_OF_FILE)
 		{
@@ -30,6 +31,10 @@ int main()
 			cout << myEvents.getChar();
 		}
 	}
-	cout << endl << "END Testing eventGenerator" << endl;
+	cout << endl << "end testing eventgenerator" << endl;*/
+
+	stringFSM fsmS(&myEvents);
+	fsmS.cycle();
+	cout << "ErrorStatus " << genericFSM::getErrorStatus() << endl;
 }
 

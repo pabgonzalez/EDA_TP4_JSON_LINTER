@@ -14,9 +14,10 @@ void valueFSM::createFSM(void)
 		number->cycle();
 		if (number->getErrorStatus() == true)
 		{
-			
+			setErrorStatus(true);
 		}
 	}
+	else if ...
 }
 void isTrue(void);
 void isFalse(void);

@@ -15,16 +15,16 @@ typedef struct
 class genericFSM
 {
 public:
-	genericFSM(const cellType* const table, const unsigned int rows, const unsigned int columns, stateTypes initState);
-	void setErrorStatus(bool);
-	bool getErrorStatus(void);
+	genericFSM(const cellType* const table, const unsigned int rows, const unsigned int columns, stateTypes initState, eventGenerator* events_);
 
+	static bool getErrorStatus(void);
+	static void setErrorStatus(bool);
 protected:
-	bool errorStatus;
 	eventGenerator* events;
 	const unsigned int rowCount;
 	const unsigned int columnCount;
-	const cellType* const tableFSM;
+	const cellType* const pTableFSM;
 	stateTypes state;
+	static bool errorStatus;
 };
 

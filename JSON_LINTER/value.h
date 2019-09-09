@@ -10,7 +10,7 @@ typedef struct
 	void (*action) (void);
 }cellType;
 
-class valueFSM
+class valueFSM : public genericFSM
 {
 public:
 	valueFSM(eventGenerator*);
@@ -22,9 +22,7 @@ public:
 	void isFalse(void);
 	void isNull(void);
 private:
-	stateValueType state;
-	eventGenerator* events;
-	bool errorStatus;	
+	stateValueType state;	
 									//START_ST					//T					//F					//N					//OTHER
 	const cellType tableFSM[7][5] = {
 									{ {SUB_FSM,createFSM()},	{TRUE,isTrue()},	{FALSE,isFalse()},	{NULLP,isNull()},	{ERROR,error()} },		//INIT
