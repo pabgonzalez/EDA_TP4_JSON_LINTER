@@ -155,12 +155,14 @@
     <ClCompile Include="jsonFSM.cpp" />
     <ClCompile Include="JSON_LINTER.cpp" />
     <ClCompile Include="linter.cpp" />
+    <ClCompile Include="number.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="eventGenerator.h" />
     <ClInclude Include="genericFSM.h" />
     <ClInclude Include="jsonFSM.h" />
     <ClInclude Include="linter.h" />
+    <ClInclude Include="number.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="test.json" />

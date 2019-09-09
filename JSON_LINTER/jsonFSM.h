@@ -27,9 +27,9 @@ private:
 	eventGenerator* events;
 	bool errorStatus;
 										//NOCOMA				COMA	
-	const cellType tableFSM[4][2] = {{{ELEMENT, &element} ,	{ERROR,error()}  },		//INIT
-									{ {ERROR,error()},			{COMA,coma()}    },		//ELEMENT
-									{ {ELEMENT,element()},		{ERROR,error()}  },		//COMA
-									{ {ERROR, error()},					{ERROR, error()}         } };	//ERROR
+	const cellType tableFSM[4][2] = {{{ELEMENT, &element} ,		{ERROR,error()}  },				//INIT
+									{ {ERROR,error()},			{COMA,coma()}    },				//ELEMENT
+									{ {ELEMENT,element()},		{ERROR,error()}  },				//COMA
+									{ {ERROR, error()},			{ERROR, error()}         } };	//ERROR
 
 };

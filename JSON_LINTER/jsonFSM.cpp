@@ -9,7 +9,7 @@ jsonFSM::jsonFSM(eventGenerator* eventG)
 
 void jsonFSM::cycle(void)
 {
-	while (events->getNextEvent != END_OF_FILE || error == false)
+	while (events->getNextEvent != END_OF_FILE && error == false)
 	{
 		if (events->getCurrentEvent() == ',')
 		{
