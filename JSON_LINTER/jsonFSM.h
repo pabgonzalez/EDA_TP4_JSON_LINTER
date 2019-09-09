@@ -4,7 +4,7 @@
 #define TX(x) ((static_cast)<void (jsonFSM::*)(void)>(&jsonFSM:: x))
 
 typedef enum {INIT,ELEMENT,COMA,ERROR} stateJSONType;
-enum EVENTS {NO_COMA,COMA};
+enum EVENTS { NO_COMA,COMA };
 
 typedef struct
 {
@@ -22,14 +22,15 @@ public:
 
 	//acciones
 	void cycle(void);
+
 private:
 	stateJSONType state;
 	eventGenerator* events;
 	bool errorStatus;
-										//NOCOMA				COMA	
-	const cellType tableFSM[4][2] = {{{ELEMENT, &element} ,	{ERROR,error()}  },		//INIT
-									{ {ERROR,error()},			{COMA,coma()}    },		//ELEMENT
-									{ {ELEMENT,element()},		{ERROR,error()}  },		//COMA
-									{ {ERROR, error()},					{ERROR, error()}         } };	//ERROR
+	//								   NOCOMA				 COMA	
+	const cellType tableFSM[4][2] = { { {ELEMENT, &element}, {ERROR,error()}  },		//INIT
+									  { {ERROR,error()},	 {COMA,coma()}    },		//ELEMENT
+									  { {ELEMENT,element()}, {ERROR,error()}  },		//COMA
+									  { {ERROR, error()},	 {ERROR, error()} } };		//ERROR
 
 };

@@ -1,13 +1,13 @@
-#include "jsonFSM.h"
+#include "arrayFSM.h"
 
-jsonFSM::jsonFSM(eventGenerator* eventG)
+arrayFSM::arrayFSM(eventGenerator* eventG)
 {
 	state = INIT;
 	events = eventG;
 	errorStatus = false;
 }
 
-void jsonFSM::cycle(void)
+void arrayFSM::cycle(void)
 {
 	while (events->getNextEvent != END_OF_FILE && error == false)
 	{
@@ -15,6 +15,11 @@ void jsonFSM::cycle(void)
 		{
 			tableFSM[state][COMA].action();
 			state = tableFSM[state][COMA].nextState;
+		}
+		else if (events->getCurrentEvent() == ']')
+		{
+			tableFSM[state][BRACKET].action();
+			state = tableFSM[state][BRACKET].nextState;
 		}
 		else
 		{
@@ -24,18 +29,18 @@ void jsonFSM::cycle(void)
 	}
 }
 
-void jsonFSM::element(void)
+bool arrayFSM::checkValue(void)
 {
 	//hacer una instancia de valueFSM
 	//llamar a cycle de esa instancia
 }
 
-void jsonFSM::coma(void)
+void arrayFSM::nothing(void)
 {
-	
+
 }
 
-void jsonFSM::error(void)
+void arrayFSM::error(void)
 {
 	errorStatus = true;
 }

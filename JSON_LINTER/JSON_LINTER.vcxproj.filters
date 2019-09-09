@@ -27,6 +27,12 @@
     <ClCompile Include="linter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="stringFSM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arrayFSM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="genericFSM.h">
@@ -39,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="linter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stringFSM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arrayFSM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
