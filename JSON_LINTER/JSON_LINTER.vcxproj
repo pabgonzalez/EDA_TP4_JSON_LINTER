@@ -153,12 +153,12 @@
   <ItemGroup>
     <ClCompile Include="arrayFSM.cpp" />
     <ClCompile Include="eventGenerator.cpp" />
-    <ClCompile Include="genericFSM.cpp" />
     <ClCompile Include="jsonFSM.cpp" />
     <ClCompile Include="JSON_LINTER.cpp" />
     <ClCompile Include="linter.cpp" />
     <ClCompile Include="number.cpp" />
-    <ClCompile Include="value.cpp" />
+    <ClCompile Include="objectFSM.cpp" />
+    <ClCompile Include="stringFSM.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arrayFSM.h" />
@@ -167,7 +167,8 @@
     <ClInclude Include="jsonFSM.h" />
     <ClInclude Include="linter.h" />
     <ClInclude Include="number.h" />
-    <ClInclude Include="value.h" />
+    <ClInclude Include="objectFSM.h" />
+    <ClInclude Include="stringFSM.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="test.json" />

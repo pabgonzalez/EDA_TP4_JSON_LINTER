@@ -1,7 +1,7 @@
 #pragma once
 #include "eventGenerator.h"
 
-#define TX(x) ((static_cast)<void (jsonFSM::*)(void)>(&jsonFSM:: x))
+#define TX(x) ((static_cast)<void (arrayFSM::*)(void)>(&arrayFSM:: x))
 
 typedef enum { INIT, VALUE, OK, ERROR } stateArrayType;
 enum EVENTS { COMA, NO_COMA, BRACKET };
