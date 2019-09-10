@@ -25,9 +25,6 @@ public:
 	//acciones
 	void value(void);
 	void string(void);
-	void nothing(void);
-	void error(void);
-	void cycleOK(void);
 
 	//fsm
 	void cycle(void);

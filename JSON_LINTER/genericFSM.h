@@ -1,8 +1,8 @@
 #pragma once
-#include "eventGenerator.h"
 #include <functional>
 #include <iostream>
 #include <new>
+#include "eventGenerator.h"
 
 using stateTypes = unsigned int;
 
@@ -23,11 +23,16 @@ public:
 	static bool getErrorStatus(void);
 	static void setErrorStatus(bool);
 protected:
+	void nothing(void);
+	void error(void);
+	void cycleOK(void);
+
 	eventGenerator* events;
 	const unsigned int rowCount;
 	const unsigned int columnCount;
 	const cellType* const pTableFSM;
 	stateTypes state;
+	bool endCycle;
 	static bool errorStatus;
 };
 

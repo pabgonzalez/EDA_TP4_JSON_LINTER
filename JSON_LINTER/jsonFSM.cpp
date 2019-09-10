@@ -1,24 +1,37 @@
-#include "jsonFSM.h"
 
-jsonFSM::jsonFSM(eventGenerator* eventG)
-{
-	state = INIT;
-	events = eventG;
-	errorStatus = false;
-}
+#include "jsonFSM.h"
+#include "value.h"
+
+
+using namespace std;
+using namespace std::placeholders;
 
 void jsonFSM::cycle(void)
 {
-	while (events->getNextEvent != END_OF_FILE && errorStatus == false)
+	cellType temp;
+	while (endCycle == false && errorStatus == false)
 	{
+		events->getNextEvent();
 		if (events->getCurrentEvent() == ',')
 		{
-			tableFSM[state][COMA].action();
+			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + COMA];
+			auto f = bind(temp.action, this);
+			f();
 			state = tableFSM[state][COMA].nextState;
+		}
+		else if (events->getCurrentEvent() == END_OF_FILE)
+		{
+			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + EOF_];
+			auto f = bind(temp.action, this);
+			f();
+			state = tableFSM[state][EOF_].nextState;
+			endCycle = true;
 		}
 		else
 		{
-			tableFSM[state][NO_COMA].action();
+			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + NO_COMA];
+			auto f = bind(temp.action, this);
+			f();
 			state = tableFSM[state][NO_COMA].nextState;
 		}
 	}
@@ -27,15 +40,9 @@ void jsonFSM::cycle(void)
 void jsonFSM::element(void)
 {
 	//hacer una instancia de valueFSM
+	valueFSM* element = new (nothrow) valueFSM(events);
 	//llamar a cycle de esa instancia
+	element->cycle();
+	delete element;
 }
 
-void jsonFSM::coma(void)
-{
-	
-}
-
-void jsonFSM::error(void)
-{
-	errorStatus = true;
-}

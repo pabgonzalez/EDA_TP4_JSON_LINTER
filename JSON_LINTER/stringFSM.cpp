@@ -48,18 +48,3 @@ void stringFSM::cycle(void)
 	}
 }
 
-void stringFSM::nothing(void)
-{
-	printf("nothing\n");
-}
-
-void stringFSM::error(void)
-{
-	printf("error\n");
-	setErrorStatus(true);
-}
-
-void stringFSM::cycleOK(void)
-{
-	endCycle = true;
-}

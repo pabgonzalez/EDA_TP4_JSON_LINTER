@@ -40,8 +40,6 @@ void objectFSM::cycle(void)
 	}
 }
 
-void objectFSM::nothing(void){}
-
 //void objectFSM::value(void)
 //{
 //	//hacer una instancia de valueFSM
@@ -58,14 +56,4 @@ void objectFSM::string(void)
 	//llamar a cycle de esa instancia
 	string->cycle;
 	delete string;
-}
-
-void objectFSM::error(void)
-{
-	errorStatus = true;
-}
-
-void objectFSM::cycleOK(void)
-{
-	endCycle = true;
 }

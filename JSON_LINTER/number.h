@@ -6,11 +6,7 @@ typedef enum {INIT,INT,SIGN_INT,CERO,POINT,FRACTION,E,SIGN_EXP,EXP,ERROR,OK}stat
 enum EVENTS_FOR_NUMBER {ONENINE,CERO,SIGN_MINUS,SIGN_PLUS,POINT,E,OTHER};
 
 
-typedef struct
-{
-	stateNumberType nextState;
-	void (*action) (void);
-}cellType;
+
 
 class numberFSM : public genericFSM
 {

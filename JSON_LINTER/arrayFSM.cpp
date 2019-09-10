@@ -41,15 +41,3 @@ void arrayFSM::cycle(void)
 //	value->cycle;
 //	delete value;
 //}
-
-void arrayFSM::nothing(void){}
-
-void arrayFSM::error(void)
-{
-	errorStatus = true;
-}
-
-void arrayFSM::cycleOK(void)
-{
-	endCycle = true;
-}
