@@ -3,9 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include "eventGenerator.h"
-#include "stringFSM.h"
-#include "genericFSM.h"
+#include "jsonFSM.h"
 
 using namespace std;
 
@@ -33,7 +31,7 @@ int main()
 	}
 	cout << endl << "end testing eventgenerator" << endl;*/
 
-	stringFSM fsmS(&myEvents);
+	jsonFSM fsmS(&myEvents);
 	fsmS.cycle();
 	cout << "ErrorStatus " << genericFSM::getErrorStatus() << endl;
 	myEvents.printfNow();
