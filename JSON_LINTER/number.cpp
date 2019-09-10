@@ -36,5 +36,6 @@ void numberFSM::cycle(void)
 		{
 			next(OTHER);
 		}
+		events->getNextEvent();
 	} while (endCycle == false && errorStatus == false);
 }

@@ -2,7 +2,6 @@
 
 void jsonFSM::cycle(void)
 {
-	cellType temp;
 	while (endCycle == false && errorStatus == false)
 	{
 		events->getNextEvent();

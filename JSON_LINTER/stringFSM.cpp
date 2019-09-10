@@ -2,7 +2,6 @@
 
 void stringFSM::cycle(void)
 {
-	cellType temp;
 	while (endCycle == false && getErrorStatus() == false)
 	{
 		events->getNextEvent();

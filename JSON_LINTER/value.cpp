@@ -4,9 +4,8 @@
 
 void valueFSM::cycle(void)
 {
-	while (endCycle == false && getErrorStatus() == false)
+	do
 	{
-		events->getNextEvent();
 		if (events->getCurrentEvent() == 't')
 		{
 			next(T);
@@ -27,7 +26,8 @@ void valueFSM::cycle(void)
 		{
 			next(START_ST);
 		}
-	}
+		events->getNextEvent();
+	} while (endCycle == false && getErrorStatus() == false);
 }
 
 void valueFSM::createFSM(void)
