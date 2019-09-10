@@ -1,17 +1,12 @@
 #pragma once
-#include "eventGenerator.h"
+
 #include "genericFSM.h"
-//#include "value.h"
+#include "value.h"
 #include "stringFSM.h"
 
 #define OQSTATES 5
 #define OQEVENTS 5
 
-//typedef struct
-//{
-//	stateObjectType nextState;
-//	void (*action) (void);
-//}cellType;
 
 class objectFSM : public genericFSM
 {
@@ -32,7 +27,7 @@ public:
 private:
 	enum stateObjectType : stateTypes { INIT, STRING, VALUE, OK, ERROR };
 	enum EVENTS { QUOTE, BRACE, COMA, COLON, OTHER };
-	bool endCycle;
+	
 	#define OX(x) (static_cast<void (genericFSM::* ) (void)>(&objectFSM::x))
 	//												   QUOTE				   BRACE			   COMA					 COLON				 OTHER
 	const cellType tableFSM[OQSTATES][OQEVENTS] = { { {STRING, OX(string)},   {OK, OX(nothing)},  {ERROR, OX(error)},	{ERROR, OX(error)},	{ERROR, OX(error)} },		//INIT

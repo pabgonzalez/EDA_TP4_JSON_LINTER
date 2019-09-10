@@ -1,7 +1,5 @@
 #include "objectFSM.h"
 
-using namespace std;
-using namespace std::placeholders;
 
 void objectFSM::cycle(void)
 {
@@ -11,43 +9,31 @@ void objectFSM::cycle(void)
 		events->getNextEvent();
 		if (events->getCurrentEvent() == '"')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + QUOTE];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][QUOTE].nextState;
+			next(QUOTE);
 		}
 		else if (events->getCurrentEvent() == '}')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + BRACE];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][BRACE].nextState;
+			next(BRACE);
 		}
 		else if (events->getCurrentEvent() == ':')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + COLON];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][COLON].nextState;
+			next(COLON);
 		}
 		else if (events->getCurrentEvent() == ',')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + COMA];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][COMA].nextState;
+			next(COMA);
 		}
 	}
 }
 
-//void objectFSM::value(void)
-//{
-//	//hacer una instancia de valueFSM
-//	valueFSM* value = new (nothrow) valueFSM(events);
-//	//llamar a cycle de esa instancia
-//	value->cycle;
-//	delete value;
-//}
+void objectFSM::value(void)
+{
+	//hacer una instancia de valueFSM
+	valueFSM* value = new (nothrow) valueFSM(events);
+	//llamar a cycle de esa instancia
+	value->cycle;
+	delete value;
+}
 
 void objectFSM::string(void)
 {

@@ -1,43 +1,30 @@
 #include "arrayFSM.h"
 
-using namespace std;
-using namespace std::placeholders;
-
 void arrayFSM::cycle(void)
 {
-	cellType temp;
 	while (endCycle == false && getErrorStatus() == false)
 	{
 		events->getNextEvent();
 		if (events->getCurrentEvent() == ',')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + COMA];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][COMA].nextState;
+			next(COMA);
 		}
 		else if (events->getCurrentEvent() == ']')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + BRACKET];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][BRACKET].nextState;
+			next(BRACKET);
 		}
 		else
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + NO_COMA];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][NO_COMA].nextState;
+			next(NO_COMA);
 		}
 	}
 }
 
-//void arrayFSM::value(void)
-//{
-//	//hacer una instancia de valueFSM
-//	valueFSM* value = new (nothrow) valueFSM(events);
-//	//llamar a cycle de esa instancia
-//	value->cycle;
-//	delete value;
-//}
+void arrayFSM::value(void)
+{
+	//hacer una instancia de valueFSM
+	valueFSM* value = new (nothrow) valueFSM(events);
+	//llamar a cycle de esa instancia
+	value->cycle();
+	delete value;
+}
