@@ -1,6 +1,7 @@
 #pragma once
 #include "eventGenerator.h"
 #include "genericFSM.h"
+//#include "value.h"
 
 #define AQSTATES 4
 #define AQEVENTS 3
@@ -24,7 +25,7 @@ public:
 	}
 	
 	//acciones
-	void checkValue(void);
+	void value(void);
 	void nothing(void);
 	void error(void);
 	void cycleOK(void);
@@ -36,8 +37,8 @@ private:
 	bool endCycle;
 	#define TX(x) (static_cast<void (genericFSM::* ) (void)>(&arrayFSM:: x))
 	//												   COMA						NO_COMA					 BRACKET
-	const cellType tableFSM[AQSTATES][AQEVENTS] = { { {ERROR, TX(error)},	   {VALUE, TX(checkValue)}, {OK, TX(cycleOK)} },		//INIT
-													{ {VALUE, TX(checkValue)}, {ERROR, TX(error)},		{OK, TX(cycleOK)} },		//VALUE
+	const cellType tableFSM[AQSTATES][AQEVENTS] = { { {ERROR, TX(error)},	   {VALUE, TX(value)}, {OK, TX(cycleOK)} },		//INIT
+													{ {VALUE, TX(value)}, {ERROR, TX(error)},		{OK, TX(cycleOK)} },		//VALUE
 													{ {OK, TX(cycleOK)},	   {OK, TX(cycleOK)},		{OK, TX(cycleOK)} },		//OK
 													{ {ERROR, TX(error)},	   {ERROR, TX(error)},		{ERROR, TX(error)} } };		//ERROR
 };

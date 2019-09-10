@@ -160,6 +160,7 @@
     <ClCompile Include="number.cpp" />
     <ClCompile Include="objectFSM.cpp" />
     <ClCompile Include="stringFSM.cpp" />
+    <ClCompile Include="value.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arrayFSM.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="number.h" />
     <ClInclude Include="objectFSM.h" />
     <ClInclude Include="stringFSM.h" />
+    <ClInclude Include="value.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="test.json" />

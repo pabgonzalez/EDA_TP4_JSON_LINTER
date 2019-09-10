@@ -1,4 +1,3 @@
-
 #include "stringFSM.h"
 
 using namespace std;
@@ -19,7 +18,7 @@ void stringFSM::cycle(void)
 		}
 		else if (events->getCurrentEvent() == '\\')
 		{
-			cellType temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + BARRA_INV];
+			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + BARRA_INV];
 			auto f = bind(temp.action, this);
 			f();
 			state = tableFSM[state][BARRA_INV].nextState;
@@ -34,14 +33,14 @@ void stringFSM::cycle(void)
 		else if (events->getCurrentEvent() == '/' || events->getCurrentEvent() == 'b' || events->getCurrentEvent() == 'f' || events->getCurrentEvent() == 'n' ||
 			events->getCurrentEvent() == 'r' || events->getCurrentEvent() == 't' || events->getCurrentEvent() == '\\' || events->getCurrentEvent() == '"')
 		{
-			cellType temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + ESC];
+			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + ESC];
 			auto f = bind(temp.action, this);
 			f();
 			state = tableFSM[state][ESC].nextState;
 		}
 		else
 		{
-			cellType temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + CHARAC];
+			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + CHARAC];
 			auto f = bind(temp.action, this);
 			f();
 			state = tableFSM[state][CHARAC].nextState;

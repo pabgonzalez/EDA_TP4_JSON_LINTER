@@ -1,12 +1,11 @@
 #pragma once
 #include "eventGenerator.h"
 #include "genericFSM.h"
+//#include "value.h"
+#include "stringFSM.h"
 
 #define OQSTATES 5
 #define OQEVENTS 5
-
-enum stateObjectType : stateTypes { INIT, STRING, VALUE, OK, ERROR };
-enum EVENTS { QUOTE, BRACE, COMA, COLON, OTHER };
 
 //typedef struct
 //{
@@ -24,8 +23,8 @@ public:
 	}
 
 	//acciones
-	void checkValue(void);
-	void checkString(void);
+	void value(void);
+	void string(void);
 	void nothing(void);
 	void error(void);
 	void cycleOK(void);
@@ -34,12 +33,14 @@ public:
 	void cycle(void);
 
 private:
+	enum stateObjectType : stateTypes { INIT, STRING, VALUE, OK, ERROR };
+	enum EVENTS { QUOTE, BRACE, COMA, COLON, OTHER };
 	bool endCycle;
-	#define TX(x) (static_cast<void (genericFSM::* ) (void)>(&objectFSM::x))
-	//												   QUOTE						BRACE				COMA					   COLON					OTHER
-	const cellType tableFSM[OQSTATES][OQEVENTS] = { { {STRING, TX(checkString)},   {OK, TX(nothing)},  {ERROR, TX(error)},		  {ERROR, TX(error)},	   {ERROR, TX(error)} },		//INIT
-													{ {ERROR, TX(error)},		   {ERROR, TX(error)}, {ERROR, TX(error)},		  {VALUE, TX(checkValue)}, {ERROR, TX(error)} },		//STRING
-													{ {ERROR, TX(error)},		   {OK, TX(cycleOK)},  {STRING, TX(checkString)}, {ERROR, TX(error)},	   {ERROR, TX(error)} },		//VALUE
-													{ {OK, TX(cycleOK)},		   {OK, TX(cycleOK)},  {OK, TX(cycleOK)},		  {OK, TX(cycleOK)},	   {OK, TX(cycleOK)} },			//OK
-													{ {ERROR, TX(error)},		   {ERROR, TX(error)}, {ERROR, TX(error)},		  {ERROR, TX(error)},	   {ERROR, TX(error)} } };		//ERROR
+	#define OX(x) (static_cast<void (genericFSM::* ) (void)>(&objectFSM::x))
+	//												   QUOTE				   BRACE			   COMA					 COLON				 OTHER
+	const cellType tableFSM[OQSTATES][OQEVENTS] = { { {STRING, OX(string)},   {OK, OX(nothing)},  {ERROR, OX(error)},	{ERROR, OX(error)},	{ERROR, OX(error)} },		//INIT
+													{ {ERROR, OX(error)},	  {ERROR, OX(error)}, {ERROR, OX(error)},	{VALUE, OX(value)}, {ERROR, OX(error)} },		//STRING
+													{ {ERROR, OX(error)},	  {OK, OX(cycleOK)},  {STRING, OX(string)}, {ERROR, OX(error)},	{ERROR, OX(error)} },		//VALUE
+													{ {OK, OX(cycleOK)},	  {OK, OX(cycleOK)},  {OK, OX(cycleOK)},	{OK, OX(cycleOK)},	{OK, OX(cycleOK)} },			//OK
+													{ {ERROR, OX(error)},	  {ERROR, OX(error)}, {ERROR, OX(error)},	{ERROR, OX(error)},	{ERROR, OX(error)} } };		//ERROR
 };
