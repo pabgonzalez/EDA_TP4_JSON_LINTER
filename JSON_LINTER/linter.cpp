@@ -2,7 +2,7 @@
 
 linter::linter(eventGenerator* events)
 {
-	error = true;
 	jsonFSM jsonFSM(events);
 	jsonFSM.cycle();
+	error = genericFSM::getErrorStatus();
 }
