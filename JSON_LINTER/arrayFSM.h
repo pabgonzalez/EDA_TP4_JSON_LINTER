@@ -7,11 +7,7 @@
 typedef enum { INIT, VALUE, OK, ERROR } stateArrayType;
 enum EVENTS { COMA, NO_COMA, BRACKET };
 
-typedef struct
-{
-	stateArrayType nextState;
-	void (*action) (void);
-}cellType;
+
 
 class arrayFSM : public genericFSM
 {

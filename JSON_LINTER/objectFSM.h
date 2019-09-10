@@ -7,11 +7,7 @@
 typedef enum { INIT, STRING, VALUE, OK, ERROR } stateObjectType;
 enum EVENTS { QUOTE, BRACE, COMA, COLON, OTHER };
 
-typedef struct
-{
-	stateObjectType nextState;
-	void (*action) (void);
-}cellType;
+
 
 class objectFSM : public genericFSM
 {

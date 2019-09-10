@@ -1,7 +1,5 @@
 
 #include "stringFSM.h"
-#include <functional>
-#include <iostream>
 
 using namespace std;
 using namespace std::placeholders;
@@ -52,18 +50,3 @@ void stringFSM::cycle(void)
 	}
 }
 
-void stringFSM::nothing(void)
-{
-	printf("nothing\n");
-}
-
-void stringFSM::error(void)
-{
-	printf("error\n");
-	setErrorStatus(true);
-}
-
-void stringFSM::cycleOK(void)
-{
-	endCycle = true;
-}

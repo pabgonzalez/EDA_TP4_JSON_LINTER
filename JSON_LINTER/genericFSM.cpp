@@ -4,7 +4,7 @@
 bool genericFSM::errorStatus = false;
 
 genericFSM:: genericFSM(const cellType* const table = NULL, const unsigned int rows = 0, const unsigned int columns = 0, stateTypes initState = 0, eventGenerator* events_ = NULL)
-	: state(initState), rowCount(rows), columnCount(columns), pTableFSM(table), events(events_) {}
+	: state(initState), rowCount(rows), columnCount(columns), pTableFSM(table), events(events_), endCycle(false) {}
 
 void genericFSM::setErrorStatus(bool status)
 {
@@ -21,4 +21,20 @@ void genericFSM::setErrorStatus(bool status)
 bool genericFSM::getErrorStatus(void)
 {
 	return errorStatus;
+}
+
+void genericFSM::nothing(void)
+{
+	printf("nothing\n");
+}
+
+void genericFSM::error(void)
+{
+	printf("error\n");
+	setErrorStatus(true);
+}
+
+void genericFSM::cycleOK(void)
+{
+	endCycle = true;
 }
