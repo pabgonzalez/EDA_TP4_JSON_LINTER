@@ -10,7 +10,7 @@ void numberFSM::cycle(void)
 		}
 		else if (events->getCurrentEvent() == '0')
 		{
-			next(CERO);
+			next(CER0);
 		}
 		else if (events->getCurrentEvent() == '-')
 		{
@@ -18,15 +18,15 @@ void numberFSM::cycle(void)
 		}
 		else if (events->getCurrentEvent() == '+')
 		{
-			next(SIGN_PLUS)
+			next(SIGN_PLUS);
 		}
 		else if (events->getCurrentEvent() == '.')
 		{
-			next(POINT);
+			next(P0INT);
 		}
 		else if (events->getCurrentEvent() == 'E'  || events->getCurrentEvent() == 'e')
 		{
-			next(E);
+			next(EXPO);
 		}
 		else if (events->getCurrentEvent() == END_OF_FILE)
 		{
@@ -38,5 +38,3 @@ void numberFSM::cycle(void)
 		}
 	} while (endCycle == false && errorStatus == false);
 }
-
-

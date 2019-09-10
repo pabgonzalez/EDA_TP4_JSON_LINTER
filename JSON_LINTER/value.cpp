@@ -1,9 +1,6 @@
 #pragma once
 #include "value.h"
-#include "number.h"
-#include "arrayFSM.h"
-#include "stringFSM.h"
-#include "objectFSM.h"
+
 
 void valueFSM::cycle(void)
 {
@@ -55,9 +52,9 @@ void valueFSM::createFSM(void)
 	}
 	else if (events->getCurrentEvent() == '[')
 	{
-		arrayFSM* myArray = new (nothrow) arrayFSM(events);
-		myArray_->cycle();
-		delete myArray;
+		arrayFSM* array_ = new (nothrow) arrayFSM(events);
+		array_->cycle();
+		delete array_;
 	}
 	else
 	{

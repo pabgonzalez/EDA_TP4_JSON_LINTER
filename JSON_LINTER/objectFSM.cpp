@@ -31,7 +31,7 @@ void objectFSM::value(void)
 	//hacer una instancia de valueFSM
 	valueFSM* value = new (nothrow) valueFSM(events);
 	//llamar a cycle de esa instancia
-	value->cycle;
+	value->cycle();
 	delete value;
 }
 
@@ -40,6 +40,6 @@ void objectFSM::string(void)
 	//hacer una instancia de valueFSM
 	stringFSM* string = new (nothrow) stringFSM(events);
 	//llamar a cycle de esa instancia
-	string->cycle;
+	string->cycle();
 	delete string;
 }

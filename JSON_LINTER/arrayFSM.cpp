@@ -13,6 +13,10 @@ void arrayFSM::cycle(void)
 		{
 			next(BRACKET);
 		}
+		else if (events->getCurrentEvent() == END_OF_FILE)
+		{
+			next(EOF_);
+		}
 		else
 		{
 			next(NO_COMA);

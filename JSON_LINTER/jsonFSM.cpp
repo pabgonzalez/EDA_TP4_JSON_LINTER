@@ -1,5 +1,4 @@
 #include "jsonFSM.h"
-#include "value.h"
 
 void jsonFSM::cycle(void)
 {
@@ -9,7 +8,7 @@ void jsonFSM::cycle(void)
 		events->getNextEvent();
 		if (events->getCurrentEvent() == ',')
 		{
-			next(COMA);
+			next(C0MA);
 		}
 		else if (events->getCurrentEvent() == END_OF_FILE)
 		{
@@ -30,4 +29,3 @@ void jsonFSM::element(void)
 	element->cycle();
 	delete element;
 }
-

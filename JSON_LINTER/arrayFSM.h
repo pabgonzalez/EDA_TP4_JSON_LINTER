@@ -3,11 +3,7 @@
 #include "value.h"
 
 #define AQSTATES 4
-#define AQEVENTS 3
-
-enum  stateArrayType : stateTypes { INIT, VALUE, OK, ERROR };
-enum EVENTS { COMA, NO_COMA, BRACKET };
-
+#define AQEVENTS 4
 
 class arrayFSM : public genericFSM
 {
@@ -22,10 +18,12 @@ public:
 	void cycle(void);
 
 private:
-	#define TX(x) (static_cast<void (genericFSM::* ) (void)>(&arrayFSM:: x))
-	//												   COMA						NO_COMA					 BRACKET
-	const cellType tableFSM[AQSTATES][AQEVENTS] = { { {ERROR, TX(error)},	   {VALUE, TX(value)}, {OK, TX(cycleOK)} },		//INIT
-													{ {VALUE, TX(value)}, {ERROR, TX(error)},		{OK, TX(cycleOK)} },		//VALUE
-													{ {OK, TX(cycleOK)},	   {OK, TX(cycleOK)},		{OK, TX(cycleOK)} },		//OK
-													{ {ERROR, TX(error)},	   {ERROR, TX(error)},		{ERROR, TX(error)} } };		//ERROR
+	enum  stateArrayType : stateTypes { INIT, VALUE, OK, ERROR };
+	enum EVENTS { COMA, NO_COMA, BRACKET, EOF_ };
+	#define AX(x) (static_cast<void (genericFSM::* ) (void)>(&arrayFSM:: x))
+	//												   COMA				   NO_COMA			   BRACKET			   EOF_
+	const cellType tableFSM[AQSTATES][AQEVENTS] = { { {ERROR, AX(error)}, {VALUE, AX(value)}, {OK, AX(cycleOK)},  {ERROR, AX(error)} },		//INIT
+													{ {VALUE, AX(value)}, {ERROR, AX(error)}, {OK, AX(cycleOK)},  {ERROR, AX(error)} },		//VALUE
+													{ {OK, AX(cycleOK)},  {OK, AX(cycleOK)},  {OK, AX(cycleOK)},  {OK, AX(cycleOK)} },		//OK
+													{ {ERROR, AX(error)}, {ERROR, AX(error)}, {ERROR, AX(error)}, {ERROR, AX(error)} } };	//ERROR
 };

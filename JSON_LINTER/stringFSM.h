@@ -4,9 +4,6 @@
 #define SQSTATES 6
 #define SQEVENTS 5
 
-enum stateStringType : stateTypes { INIT, CH, B_INV, ESC, OK, ERROR };
-enum EVENTS { QUOTE, CHARAC, BARRA_INV, ESCAPE, EOF_ };
-
 class stringFSM : public genericFSM
 {
 public:
@@ -17,13 +14,16 @@ public:
 
 	//fsm
 	void cycle(void);
+
 private:
-	#define TX(x) (static_cast<void (genericFSM::* ) (void)>(&stringFSM::x))
+	enum stateStringType : stateTypes { INIT, CH, B_INV, ESC, OK, ERROR };
+	enum EVENTS { QUOTE, CHARAC, BARRA_INV, ESCAPE, EOF_ };
+	#define SX(x) (static_cast<void (genericFSM::* ) (void)>(&stringFSM::x))
 	//												   QUOTE			   CHARAC			   BARRA_INV			 ESC				 EOF_
-	const cellType tableFSM[SQSTATES][SQEVENTS] = { { {OK, TX(cycleOK)},  {CH, TX(nothing)},  {B_INV, TX(nothing)}, {CH, TX(nothing)},  {ERROR, TX(error)} },		//INIT
-													{ {OK, TX(cycleOK)},  {CH, TX(nothing)},  {B_INV, TX(nothing)}, {CH, TX(nothing)},  {ERROR, TX(error)} },		//CH
-													{ {ESC, TX(nothing)}, {ERROR, TX(error)}, {ESC, TX(nothing)},	{ESC, TX(nothing)}, {ERROR, TX(error)} },		//B_INV
-													{ {OK, TX(nothing)},  {CH, TX(nothing)},  {B_INV, TX(nothing)}, {CH, TX(nothing)},  {ERROR, TX(error)} },		//ESC
-													{ {OK, TX(cycleOK)},  {OK, TX(cycleOK)},  {OK, TX(cycleOK)},    {OK, TX(cycleOK)},  {OK, TX(cycleOK)} },		//OK
-													{ {ERROR, TX(error)}, {ERROR, TX(error)}, {ERROR, TX(error)},   {ERROR, TX(error)}, {ERROR, TX(error)} } };		//ERROR
+	const cellType tableFSM[SQSTATES][SQEVENTS] = { { {OK, SX(cycleOK)},  {CH, SX(nothing)},  {B_INV, SX(nothing)}, {CH, SX(nothing)},  {ERROR, SX(error)} },		//INIT
+													{ {OK, SX(cycleOK)},  {CH, SX(nothing)},  {B_INV, SX(nothing)}, {CH, SX(nothing)},  {ERROR, SX(error)} },		//CH
+													{ {ESC, SX(nothing)}, {ERROR, SX(error)}, {ESC, SX(nothing)},	{ESC, SX(nothing)}, {ERROR, SX(error)} },		//B_INV
+													{ {OK, SX(nothing)},  {CH, SX(nothing)},  {B_INV, SX(nothing)}, {CH, SX(nothing)},  {ERROR, SX(error)} },		//ESC
+													{ {OK, SX(cycleOK)},  {OK, SX(cycleOK)},  {OK, SX(cycleOK)},    {OK, SX(cycleOK)},  {OK, SX(cycleOK)} },		//OK
+													{ {ERROR, SX(error)}, {ERROR, SX(error)}, {ERROR, SX(error)},   {ERROR, SX(error)}, {ERROR, SX(error)} } };		//ERROR
 };
