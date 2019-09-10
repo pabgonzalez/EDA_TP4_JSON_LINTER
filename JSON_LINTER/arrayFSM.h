@@ -2,33 +2,42 @@
 #include "eventGenerator.h"
 #include "genericFSM.h"
 
-#define TX(x) ((static_cast)<void (arrayFSM::*)(void)>(&arrayFSM:: x))
+#define AQSTATES 4
+#define AQEVENTS 3
 
-typedef enum { INIT, VALUE, OK, ERROR } stateArrayType;
+enum  stateArrayType : stateTypes { INIT, VALUE, OK, ERROR };
 enum EVENTS { COMA, NO_COMA, BRACKET };
 
-typedef struct
-{
-	stateArrayType nextState;
-	void (*action) (void);
-}cellType;
+//typedef struct
+//{
+//	stateArrayType nextState;
+//	void (*action) (void);
+//}cellType;
 
 class arrayFSM : public genericFSM
 {
 public:
-	arrayFSM(eventGenerator*);
-	bool checkValue(void);
+	//constructor
+	arrayFSM(eventGenerator* events) : genericFSM(&tableFSM[0][0], AQSTATES, AQEVENTS, INIT, events)
+	{
+		endCycle = false;
+	}
+	
+	//acciones
+	void checkValue(void);
 	void nothing(void);
 	void error(void);
+	void cycleOK(void);
 
-	//acciones
+	//fsm
 	void cycle(void);
 
 private:
-	stateArrayType state;
-	//									 COMA				  NO_COMA			   BRACKET
-	const cellType tableFSM[4][3] = { { {ERROR, error},		 {VALUE, checkValue}, {OK, nothing} },		//INIT
-									  {	{VALUE, checkValue}, {ERROR, error},	  {OK, nothing} },		//VALUE
-									  {	{OK, nothing},		 {OK, nothing},		  {OK, nothing} },		//OK
-									  { {ERROR, error},		 {ERROR, error},	  {ERROR, error} } };	//ERROR
+	bool endCycle;
+	#define TX(x) (static_cast<void (genericFSM::* ) (void)>(&arrayFSM:: x))
+	//												   COMA						NO_COMA					 BRACKET
+	const cellType tableFSM[AQSTATES][AQEVENTS] = { { {ERROR, TX(error)},	   {VALUE, TX(checkValue)}, {OK, TX(cycleOK)} },		//INIT
+													{ {VALUE, TX(checkValue)}, {ERROR, TX(error)},		{OK, TX(cycleOK)} },		//VALUE
+													{ {OK, TX(cycleOK)},	   {OK, TX(cycleOK)},		{OK, TX(cycleOK)} },		//OK
+													{ {ERROR, TX(error)},	   {ERROR, TX(error)},		{ERROR, TX(error)} } };		//ERROR
 };

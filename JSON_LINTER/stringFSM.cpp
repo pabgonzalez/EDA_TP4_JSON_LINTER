@@ -1,11 +1,8 @@
 
 #include "stringFSM.h"
-#include <functional>
-#include <iostream>
 
 using namespace std;
 using namespace std::placeholders;
-
 
 void stringFSM::cycle(void)
 {
@@ -34,8 +31,8 @@ void stringFSM::cycle(void)
 			f();
 			state = tableFSM[state][EOF_].nextState;
 		}
-		else if (events->getCurrentEvent() == '/' || events->getCurrentEvent() == 'b' || events->getCurrentEvent() == 'f' || 
-			events->getCurrentEvent() == 'n' || events->getCurrentEvent() == 'r' || events->getCurrentEvent() == 't' || events->getCurrentEvent() == '\\' || events->getCurrentEvent() == '"')
+		else if (events->getCurrentEvent() == '/' || events->getCurrentEvent() == 'b' || events->getCurrentEvent() == 'f' || events->getCurrentEvent() == 'n' ||
+			events->getCurrentEvent() == 'r' || events->getCurrentEvent() == 't' || events->getCurrentEvent() == '\\' || events->getCurrentEvent() == '"')
 		{
 			cellType temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + ESC];
 			auto f = bind(temp.action, this);

@@ -1,5 +1,8 @@
 #pragma once
 #include "eventGenerator.h"
+#include <functional>
+#include <iostream>
+#include <new>
 
 using stateTypes = unsigned int;
 
