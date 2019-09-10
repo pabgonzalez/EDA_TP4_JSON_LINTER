@@ -20,6 +20,8 @@ public:
 	char getCurrentEvent(void);
 	void printfNow(void);
 	void goBack(void);
+	void setDisplayError(void);
+
 private:
 	ifstream archJSON;
 	ifstream start;
@@ -30,5 +32,7 @@ private:
 	int countChars;
 	int countTabs;
 	int countSpaces;
+	int finalCount;
+	int finalTabs;
 	eventType event;
 };

@@ -1,5 +1,6 @@
 #pragma once
 #include "genericFSM.h"
+#include "eventGenerator.h"
 
 bool genericFSM::errorStatus = false;
 
@@ -32,6 +33,7 @@ void genericFSM::error(void)
 {
 	printf("error\n");
 	setErrorStatus(true);
+	setDisplayError();
 }
 
 void genericFSM::cycleOK(void)

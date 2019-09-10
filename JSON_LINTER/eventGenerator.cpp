@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 eventGenerator::eventGenerator()
 {
 	cout << "JSON Linter" << endl;
@@ -25,6 +24,8 @@ eventGenerator::eventGenerator()
 	countChars = 0;
 	countTabs = 0;
 	countSpaces = 0;
+	finalCount = 0;
+	finalTabs = 0;
 }
 
 eventGenerator:: ~eventGenerator()
@@ -86,6 +87,7 @@ char eventGenerator::getCurrentEvent(void)
 void eventGenerator::goBack(void)
 {
 	archJSON.putback(c);
+	countChars--;
 }
 
 void eventGenerator::printfNow(void)
@@ -99,15 +101,21 @@ void eventGenerator::printfNow(void)
 		if (count == lineNumber)
 		{
 			cout << "\t";
-			for (int i = 0; i < countSpaces + countChars - 1; i++)
+			for (int i = 0; i < (finalCount - 1); i++)
 			{
 				cout << " ";
 			}
-			for (int i = 0; i < countTabs; i++)
+			for (int i = 0; i < finalTabs; i++)
 			{
 				cout << "\t";
 			}
 			cout << "^" << endl;
 		}
 	}
+}
+
+void eventGenerator:: setDisplayError(void)
+{
+	finalCount = countChars + countSpaces;
+	finalTabs = countTabs;
 }
