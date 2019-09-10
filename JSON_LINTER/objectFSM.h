@@ -2,31 +2,44 @@
 #include "eventGenerator.h"
 #include "genericFSM.h"
 
-#define TX(x) ((static_cast)<void (objectFSM::*)(void)>(&objectFSM:: x))
+#define OQSTATES 5
+#define OQEVENTS 5
 
-typedef enum { INIT, STRING, VALUE, OK, ERROR } stateObjectType;
+enum stateObjectType : stateTypes { INIT, STRING, VALUE, OK, ERROR };
 enum EVENTS { QUOTE, BRACE, COMA, COLON, OTHER };
 
-
+//typedef struct
+//{
+//	stateObjectType nextState;
+//	void (*action) (void);
+//}cellType;
 
 class objectFSM : public genericFSM
 {
 public:
-	objectFSM(eventGenerator*);
-	bool checkValue(void);
-	bool checkString(void);
-	void nothing(void);
-	void error(void);
+	//constructor
+	objectFSM(eventGenerator* events) : genericFSM(&tableFSM[0][0], OQSTATES, OQEVENTS, INIT, events)
+	{
+		endCycle = false;
+	}
 
 	//acciones
+	void checkValue(void);
+	void checkString(void);
+	void nothing(void);
+	void error(void);
+	void cycleOK(void);
+
+	//fsm
 	void cycle(void);
 
 private:
-	stateObjectType state;
-	//									 QUOTE					BRACE			COMA				   COLON			    OTHER
-	const cellType tableFSM[5][5] = { { {STRING, checkString}, {OK, nothing},  {ERROR, error},		  {ERROR, error},	   {ERROR, error} },		//INIT
-									  { {ERROR, error},		   {ERROR, error}, {ERROR, error},		  {VALUE, checkValue}, {ERROR, error} },		//STRING
-									  { {ERROR, error},		   {OK, nothing},  {STRING, checkString}, {ERROR, error},	   {ERROR, error} },		//VALUE
-									  { {OK, nothing},		   {OK, nothing},  {OK, nothing},		  {OK, nothing},	   {OK, nothing} },			//OK
-									  { {ERROR, error},		   {ERROR, error}, {ERROR, error},		  {ERROR, error},	   {ERROR, error} } };		//ERROR
+	bool endCycle;
+	#define TX(x) (static_cast<void (genericFSM::* ) (void)>(&objectFSM::x))
+	//												   QUOTE						BRACE				COMA					   COLON					OTHER
+	const cellType tableFSM[OQSTATES][OQEVENTS] = { { {STRING, TX(checkString)},   {OK, TX(nothing)},  {ERROR, TX(error)},		  {ERROR, TX(error)},	   {ERROR, TX(error)} },		//INIT
+													{ {ERROR, TX(error)},		   {ERROR, TX(error)}, {ERROR, TX(error)},		  {VALUE, TX(checkValue)}, {ERROR, TX(error)} },		//STRING
+													{ {ERROR, TX(error)},		   {OK, TX(cycleOK)},  {STRING, TX(checkString)}, {ERROR, TX(error)},	   {ERROR, TX(error)} },		//VALUE
+													{ {OK, TX(cycleOK)},		   {OK, TX(cycleOK)},  {OK, TX(cycleOK)},		  {OK, TX(cycleOK)},	   {OK, TX(cycleOK)} },			//OK
+													{ {ERROR, TX(error)},		   {ERROR, TX(error)}, {ERROR, TX(error)},		  {ERROR, TX(error)},	   {ERROR, TX(error)} } };		//ERROR
 };

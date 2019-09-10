@@ -3,6 +3,9 @@
 #include <iostream>
 #include <new>
 #include "eventGenerator.h"
+#include <functional>
+#include <iostream>
+#include <new>
 
 using stateTypes = unsigned int;
 

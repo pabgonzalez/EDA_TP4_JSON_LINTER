@@ -1,35 +1,39 @@
 #include "arrayFSM.h"
 
-arrayFSM::arrayFSM(eventGenerator* eventG)
-{
-	state = INIT;
-	events = eventG;
-	errorStatus = false;
-}
+using namespace std;
+using namespace std::placeholders;
 
 void arrayFSM::cycle(void)
 {
-	while (events->getNextEvent != END_OF_FILE && errorStatus == false)
+	cellType temp;
+	while (endCycle == false && getErrorStatus() == false)
 	{
+		events->getNextEvent();
 		if (events->getCurrentEvent() == ',')
 		{
-			tableFSM[state][COMA].action();
+			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + COMA];
+			auto f = bind(temp.action, this);
+			f();
 			state = tableFSM[state][COMA].nextState;
 		}
 		else if (events->getCurrentEvent() == ']')
 		{
-			tableFSM[state][BRACKET].action();
+			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + BRACKET];
+			auto f = bind(temp.action, this);
+			f();
 			state = tableFSM[state][BRACKET].nextState;
 		}
 		else
 		{
-			tableFSM[state][NO_COMA].action();
+			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + NO_COMA];
+			auto f = bind(temp.action, this);
+			f();
 			state = tableFSM[state][NO_COMA].nextState;
 		}
 	}
 }
 
-bool arrayFSM::checkValue(void)
+void arrayFSM::checkValue(void)
 {
 	//hacer una instancia de valueFSM
 	//llamar a cycle de esa instancia
@@ -43,4 +47,9 @@ void arrayFSM::nothing(void)
 void arrayFSM::error(void)
 {
 	errorStatus = true;
+}
+
+void arrayFSM::cycleOK(void)
+{
+	endCycle = true;
 }
