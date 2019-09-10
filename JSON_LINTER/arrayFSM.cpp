@@ -33,23 +33,11 @@ void arrayFSM::cycle(void)
 	}
 }
 
-void arrayFSM::checkValue(void)
-{
-	//hacer una instancia de valueFSM
-	//llamar a cycle de esa instancia
-}
-
-void arrayFSM::nothing(void)
-{
-
-}
-
-void arrayFSM::error(void)
-{
-	errorStatus = true;
-}
-
-void arrayFSM::cycleOK(void)
-{
-	endCycle = true;
-}
+//void arrayFSM::value(void)
+//{
+//	//hacer una instancia de valueFSM
+//	valueFSM* value = new (nothrow) valueFSM(events);
+//	//llamar a cycle de esa instancia
+//	value->cycle;
+//	delete value;
+//}

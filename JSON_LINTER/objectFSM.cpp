@@ -40,29 +40,20 @@ void objectFSM::cycle(void)
 	}
 }
 
-void objectFSM::nothing(void)
-{
+//void objectFSM::value(void)
+//{
+//	//hacer una instancia de valueFSM
+//	valueFSM* value = new (nothrow) valueFSM(events);
+//	//llamar a cycle de esa instancia
+//	value->cycle;
+//	delete value;
+//}
 
-}
-
-void objectFSM::checkValue(void)
-{
-	//hacer una instancia de valueFSM
-	//llamar a cycle de esa instancia
-}
-
-void objectFSM::checkString(void)
+void objectFSM::string(void)
 {
 	//hacer una instancia de valueFSM
+	stringFSM* string = new (nothrow) stringFSM(events);
 	//llamar a cycle de esa instancia
-}
-
-void objectFSM::error(void)
-{
-	errorStatus = true;
-}
-
-void objectFSM::cycleOK(void)
-{
-	endCycle = true;
+	string->cycle;
+	delete string;
 }

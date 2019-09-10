@@ -3,9 +3,6 @@
 #include <iostream>
 #include <new>
 #include "eventGenerator.h"
-#include <functional>
-#include <iostream>
-#include <new>
 
 using namespace std;
 using namespace std::placeholders;
