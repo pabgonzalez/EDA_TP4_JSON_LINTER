@@ -23,7 +23,7 @@ private:
 	const cellType tableFSM[SQSTATES][SQEVENTS] = { { {OK, SX(cycleOK)},  {CH, SX(nothing)},  {B_INV, SX(nothing)}, {CH, SX(nothing)},  {ERROR, SX(error)} },		//INIT
 													{ {OK, SX(cycleOK)},  {CH, SX(nothing)},  {B_INV, SX(nothing)}, {CH, SX(nothing)},  {ERROR, SX(error)} },		//CH
 													{ {ESC, SX(nothing)}, {ERROR, SX(error)}, {ESC, SX(nothing)},	{ESC, SX(nothing)}, {ERROR, SX(error)} },		//B_INV
-													{ {OK, SX(nothing)},  {CH, SX(nothing)},  {B_INV, SX(nothing)}, {CH, SX(nothing)},  {ERROR, SX(error)} },		//ESC
+													{ {OK, SX(cycleOK)},  {CH, SX(nothing)},  {B_INV, SX(nothing)}, {CH, SX(nothing)},  {ERROR, SX(error)} },		//ESC
 													{ {OK, SX(cycleOK)},  {OK, SX(cycleOK)},  {OK, SX(cycleOK)},    {OK, SX(cycleOK)},  {OK, SX(cycleOK)} },		//OK
 													{ {ERROR, SX(error)}, {ERROR, SX(error)}, {ERROR, SX(error)},   {ERROR, SX(error)}, {ERROR, SX(error)} } };		//ERROR
 };

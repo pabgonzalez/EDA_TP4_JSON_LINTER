@@ -24,7 +24,7 @@ void numberFSM::cycle(void)
 		{
 			next(P0INT);
 		}
-		else if (events->getCurrentEvent() == 'E'  || events->getCurrentEvent() == 'e')
+		else if (events->getCurrentEvent() == 'E' || events->getCurrentEvent() == 'e')
 		{
 			next(EXPO);
 		}
@@ -36,6 +36,9 @@ void numberFSM::cycle(void)
 		{
 			next(OTHER);
 		}
-		events->getNextEvent();
+		if (endCycle == false)
+		{
+			events->getNextEvent();
+		}
 	} while (endCycle == false && errorStatus == false);
 }

@@ -20,7 +20,8 @@ public:
 	//acciones
 	void value(void);
 	void string(void);
-
+	void eatNvalue(void);
+	void eatNstring(void);
 	//fsm
 	void cycle(void);
 
@@ -31,8 +32,8 @@ private:
 	#define OX(x) (static_cast<void (genericFSM::* ) (void)>(&objectFSM::x))
 	//												   QUOTE				   BRACE			   COMA					 COLON				 OTHER
 	const cellType tableFSM[OQSTATES][OQEVENTS] = { { {STRING, OX(string)},   {OK, OX(nothing)},  {ERROR, OX(error)},	{ERROR, OX(error)},	{ERROR, OX(error)} },		//INIT
-													{ {ERROR, OX(error)},	  {ERROR, OX(error)}, {ERROR, OX(error)},	{VALUE, OX(value)}, {ERROR, OX(error)} },		//STRING
-													{ {ERROR, OX(error)},	  {OK, OX(cycleOK)},  {STRING, OX(string)}, {ERROR, OX(error)},	{ERROR, OX(error)} },		//VALUE
+													{ {ERROR, OX(error)},	  {ERROR, OX(error)}, {ERROR, OX(error)},	{VALUE, OX(eatNvalue)}, {ERROR, OX(error)} },		//STRING
+													{ {ERROR, OX(error)},	  {OK, OX(cycleOK)},  {STRING, OX(eatNstring)}, {ERROR, OX(error)},	{ERROR, OX(error)} },		//VALUE
 													{ {OK, OX(cycleOK)},	  {OK, OX(cycleOK)},  {OK, OX(cycleOK)},	{OK, OX(cycleOK)},	{OK, OX(cycleOK)} },			//OK
 													{ {ERROR, OX(error)},	  {ERROR, OX(error)}, {ERROR, OX(error)},	{ERROR, OX(error)},	{ERROR, OX(error)} } };		//ERROR
 };

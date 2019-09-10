@@ -39,6 +39,12 @@ void genericFSM::cycleOK(void)
 	endCycle = true;
 }
 
+void genericFSM::undo(void)
+{
+	events->goBack();
+	endCycle = true;
+}
+
 void genericFSM::next(int event)
 {
 	temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + event];
@@ -46,3 +52,4 @@ void genericFSM::next(int event)
 	f();
 	state = pTableFSM[state*columnCount + event].nextState;
 }
+

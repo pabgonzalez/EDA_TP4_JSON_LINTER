@@ -79,5 +79,8 @@
     <Text Include="test.json">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="t.json">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

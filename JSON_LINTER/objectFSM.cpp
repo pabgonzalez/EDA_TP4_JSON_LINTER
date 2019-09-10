@@ -42,3 +42,15 @@ void objectFSM::string(void)
 	string->cycle();
 	delete string;
 }
+
+void objectFSM::eatNvalue(void)
+{
+	events->getNextEvent();
+	value();
+}
+
+void objectFSM::eatNstring(void)
+{
+	events->getNextEvent();
+	string();
+}

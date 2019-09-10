@@ -19,6 +19,7 @@ public:
 	int getLineNumber(void);
 	char getCurrentEvent(void);
 	void printfNow(void);
+	void goBack(void);
 private:
 	ifstream archJSON;
 	ifstream start;

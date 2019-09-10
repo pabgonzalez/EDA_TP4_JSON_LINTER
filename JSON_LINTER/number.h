@@ -16,14 +16,14 @@ private:
 	#define NX(x) (static_cast<void (genericFSM::* ) (void)>(&numberFSM::x))
 	//												   ONENINE					CER0					 SIGN_MINUS				  SIGN_PLUS				   P0INT				 EXPO				 OTHER				 EOF_
 	const cellType tableFSM[NQSTATES][NQEVENTS] = { { {INT, NX(nothing)},	   {CERO, NX(nothing)},		{SIGN_INT, NX(nothing)}, {ERROR, NX(error)},	  {ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)} },		//INIT
-													{ {INT, NX(nothing)},	   {INT, NX(nothing)},		{ERROR, NX(error)},		 {ERROR, NX(error)},	  {POINT, NX(nothing)},	{E, NX(nothing)},	{OK, NX(nothing)},	{OK, NX(cycleOK)} },		//INT
+													{ {INT, NX(nothing)},	   {INT, NX(nothing)},		{ERROR, NX(error)},		 {ERROR, NX(error)},	  {POINT, NX(nothing)},	{E, NX(nothing)},	{OK, NX(undo)},	{OK, NX(cycleOK)} },		//INT
 													{ {INT, NX(nothing)},	   {CERO, NX(nothing)},		{ERROR, NX(error)},		 {ERROR, NX(error)},	  {ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)} },		//SIGN_INT
-													{ {ERROR, NX(error)},	   {ERROR, NX(error)},		{ERROR, NX(error)},		 {ERROR, NX(error)},	  {POINT, NX(nothing)},	{E, NX(nothing)},	{OK, NX(cycleOK)},	{OK, NX(cycleOK)} },		//CERO
+													{ {ERROR, NX(error)},	   {ERROR, NX(error)},		{ERROR, NX(error)},		 {ERROR, NX(error)},	  {POINT, NX(nothing)},	{E, NX(nothing)},	{OK, NX(undo)},	{OK, NX(cycleOK)} },		//CERO
 													{ {FRACTION, NX(nothing)}, {FRACTION, NX(nothing)}, {ERROR, NX(error)},		 {ERROR, NX(error)},	  {ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)} },		//POINT
-													{ {FRACTION, NX(nothing)}, {FRACTION, NX(nothing)}, {ERROR, NX(error)},		 {ERROR, NX(error)},	  {ERROR, NX(error)},	{E, NX(nothing)},	{OK, NX(cycleOK)},	{OK, NX(cycleOK)} },		//FRACTION
+													{ {FRACTION, NX(nothing)}, {FRACTION, NX(nothing)}, {ERROR, NX(error)},		 {ERROR, NX(error)},	  {ERROR, NX(error)},	{E, NX(nothing)},	{OK, NX(undo)},	{OK, NX(cycleOK)} },		//FRACTION
 													{ {EXP, NX(nothing)},	   {EXP, NX(nothing)},		{SIGN_EXP, NX(nothing)}, {SIGN_EXP, NX(nothing)}, {ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)} },		//E
 													{ {EXP, NX(nothing)},	   {EXP, NX(nothing)},		{ERROR, NX(error)},		 {ERROR, NX(error)},	  {ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)} },		//SIGN_EXP
-													{ {EXP, NX(nothing)},	   {EXP, NX(nothing)},		{ERROR, NX(error)},		 {ERROR, NX(error)},	  {ERROR, NX(error)},	{ERROR, NX(error)},	{OK, NX(cycleOK) },	{OK, NX(cycleOK)} },		//EXP
+													{ {EXP, NX(nothing)},	   {EXP, NX(nothing)},		{ERROR, NX(error)},		 {ERROR, NX(error)},	  {ERROR, NX(error)},	{ERROR, NX(error)},	{OK, NX(undo) },	{OK, NX(cycleOK)} },		//EXP
 													{ {ERROR, NX(error)},	   {ERROR, NX(error)},		{ERROR, NX(error)},		 {ERROR, NX(error)},	  {ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)},	{ERROR, NX(error)} },		//ERROR    
-													{ {OK, NX(cycleOK)},	   {OK, NX(cycleOK)},		{OK, NX(cycleOK)},		 {OK, NX(cycleOK)},		  {OK, NX(cycleOK)},	{OK, NX(cycleOK)},	{OK, NX(cycleOK)},	{OK, NX(cycleOK)} } };		//OK
+													{ {OK, NX(cycleOK)},	   {OK, NX(cycleOK)},		{OK, NX(cycleOK)},		 {OK, NX(cycleOK)},		  {OK, NX(cycleOK)},	{OK, NX(cycleOK)},	{OK, NX(undo)},	{OK, NX(cycleOK)} } };		//OK
 };

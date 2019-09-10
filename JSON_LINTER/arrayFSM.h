@@ -13,7 +13,7 @@ public:
 	
 	//acciones
 	void value(void);
-
+	void eatNvalue(void);
 	//fsm
 	void cycle(void);
 
@@ -23,7 +23,7 @@ private:
 	#define AX(x) (static_cast<void (genericFSM::* ) (void)>(&arrayFSM:: x))
 	//												   COMA				   NO_COMA			   BRACKET			   EOF_
 	const cellType tableFSM[AQSTATES][AQEVENTS] = { { {ERROR, AX(error)}, {VALUE, AX(value)}, {OK, AX(cycleOK)},  {ERROR, AX(error)} },		//INIT
-													{ {VALUE, AX(value)}, {ERROR, AX(error)}, {OK, AX(cycleOK)},  {ERROR, AX(error)} },		//VALUE
+													{ {VALUE, AX(eatNvalue)}, {ERROR, AX(error)}, {OK, AX(cycleOK)},  {ERROR, AX(error)} },		//VALUE
 													{ {OK, AX(cycleOK)},  {OK, AX(cycleOK)},  {OK, AX(cycleOK)},  {OK, AX(cycleOK)} },		//OK
 													{ {ERROR, AX(error)}, {ERROR, AX(error)}, {ERROR, AX(error)}, {ERROR, AX(error)} } };	//ERROR
 };

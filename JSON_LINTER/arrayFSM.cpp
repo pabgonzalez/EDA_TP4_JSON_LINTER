@@ -32,3 +32,9 @@ void arrayFSM::value(void)
 	value->cycle();
 	delete value;
 }
+
+void arrayFSM::eatNvalue(void)
+{
+	events->getNextEvent();
+	value();
+}

@@ -83,6 +83,11 @@ char eventGenerator::getCurrentEvent(void)
 	return c;
 }
 
+void eventGenerator::goBack(void)
+{
+	archJSON.putback(c);
+}
+
 void eventGenerator::printfNow(void)
 {
 	string line;

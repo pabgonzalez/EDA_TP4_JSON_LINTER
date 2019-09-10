@@ -26,12 +26,16 @@ void valueFSM::cycle(void)
 		{
 			next(START_ST);
 		}
-		events->getNextEvent();
+		if (endCycle == false)
+		{
+			events->getNextEvent();
+		}
 	} while (endCycle == false && getErrorStatus() == false);
 }
 
 void valueFSM::createFSM(void)
 {
+	cycleOK();
 	if (events->getCurrentEvent() == '-' || (events->getCurrentEvent() >= '0' && events->getCurrentEvent() <= '9'))
 	{
 		numberFSM* number = new (nothrow) numberFSM(events);

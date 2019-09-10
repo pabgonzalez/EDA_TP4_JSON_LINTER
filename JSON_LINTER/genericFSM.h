@@ -29,6 +29,7 @@ protected:
 	void nothing(void);
 	void error(void);
 	void cycleOK(void);
+	void undo(void);
 	cellType temp;
 	eventGenerator* events;
 	const unsigned int rowCount;
