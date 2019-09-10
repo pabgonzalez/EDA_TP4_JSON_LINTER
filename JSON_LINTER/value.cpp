@@ -5,49 +5,30 @@
 #include "stringFSM.h"
 #include "objectFSM.h"
 
-using namespace std;
-using namespace std::placeholders;
-
 void valueFSM::cycle(void)
 {
-	cellType temp;
 	while (endCycle == false && getErrorStatus() == false)
 	{
 		events->getNextEvent();
 		if (events->getCurrentEvent() == 't')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + T];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][T].nextState;
+			next(T);
 		}
 		else if (events->getCurrentEvent() == 'f')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + F];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][F].nextState;
+			next(F);
 		}
 		else if (events->getCurrentEvent() == 'n')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + N];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][N].nextState;
+			next(N);
 		}
 		else if (events->getCurrentEvent() == END_OF_FILE)
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + EOF_];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][EOF_].nextState;
+			next(EOF_);
 		}
 		else
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + START_ST];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][START_ST].nextState;
+			next(START_ST);
 		}
 	}
 }
@@ -74,9 +55,9 @@ void valueFSM::createFSM(void)
 	}
 	else if (events->getCurrentEvent() == '[')
 	{
-		arrayFSM* array = new (nothrow) arrayFSM(events);
-		array->cycle();
-		delete array;
+		arrayFSM* myArray = new (nothrow) arrayFSM(events);
+		myArray_->cycle();
+		delete myArray;
 	}
 	else
 	{

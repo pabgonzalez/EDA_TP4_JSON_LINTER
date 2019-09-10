@@ -38,3 +38,11 @@ void genericFSM::cycleOK(void)
 {
 	endCycle = true;
 }
+
+void genericFSM::next(int event)
+{
+	temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + event];
+	auto f = bind(temp.action, this);
+	f();
+	state = pTableFSM[state*columnCount + event].nextState;
+}

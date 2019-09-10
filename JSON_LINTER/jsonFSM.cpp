@@ -1,10 +1,5 @@
-
 #include "jsonFSM.h"
 #include "value.h"
-
-
-using namespace std;
-using namespace std::placeholders;
 
 void jsonFSM::cycle(void)
 {
@@ -14,25 +9,15 @@ void jsonFSM::cycle(void)
 		events->getNextEvent();
 		if (events->getCurrentEvent() == ',')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + COMA];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][COMA].nextState;
+			next(COMA);
 		}
 		else if (events->getCurrentEvent() == END_OF_FILE)
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + EOF_];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][EOF_].nextState;
-			endCycle = true;
+			next(EOF_);
 		}
 		else
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + NO_COMA];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][NO_COMA].nextState;
+			next(NO_COMA);
 		}
 	}
 }

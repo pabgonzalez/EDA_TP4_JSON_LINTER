@@ -1,35 +1,33 @@
 #pragma once
-#include "eventGenerator.h"
 #include "genericFSM.h"
 
-typedef enum {INIT,INT,SIGN_INT,CERO,POINT,FRACTION,E,SIGN_EXP,EXP,ERROR,OK}stateNumberType;
-enum EVENTS_FOR_NUMBER {ONENINE,CERO,SIGN_MINUS,SIGN_PLUS,POINT,E,OTHER};
+#define NQSTATES 11
+#define NQEVENTS 8
 
-
-
+enum stateNumberType : stateTypes {INIT,INT,SIGN_INT,CERO,POINT,FRACTION,E,SIGN_EXP,EXP,ERROR,OK};
+enum EVENTS_FOR_NUMBER {ONENINE,CERO,SIGN_MINUS,SIGN_PLUS,POINT,E,OTHER,EOF_};
 
 class numberFSM : public genericFSM
 {
 public:
-	numberFSM(eventGenerator*);
-	void nothing(void);
-	void error(void);
+	numberFSM(eventGenerator* events) : genericFSM(&tableFSM[0][0], NQSTATES, NQEVENTS, INIT, events) {}
 	void cycle(void);
 private:
-	stateNumberType state;
-										//ONENINE			//CERO				//SIGN_MINUS		//SIGN_PLUS				//POINT				//E					//OTHER
-	const cellType tableFSM[11][7] = {
-										{ {INT,nothing()},	{CERO, nothing()}, {SIGN_INT,nothing()},	{ERROR,error()},	{ERROR,error()}	,	{ERROR,error()},	{ERROR,error()}	},		//INIT
-										{ {INT,nothing()},	{INT, nothing()},  {ERROR,error()},			{ERROR,error()},	{POINT,nothing()},	{E,nothing()},		{OK,nothing()}	},		//INT
-										{ {INT,nothing()},  {CERO, nothing()}, {ERROR,error()},			{ERROR,error()},	{ERROR,error()},	{ERROR,error()},	{ERROR,error()}	},		//SIGN_INT
-										{ {ERROR,error()},	{ERROR, error()},  {ERROR,error()},			{ERROR,error()},	{POINT, nothing()}, {E,nothing()},		{OK,nothing()}	},		//CERO
-										{ {FRACTION,nothing()}, {FRACTION,nothing()}, {ERROR,error()},	{ERROR,error()},	{ERROR, error()},	{ERROR,error()},	{ERROR,error()}	},		//POINT
-										{ {FRACTION,nothing()}, {FRACTION,nothing()}, {ERROR,error()},	{ERROR,error()},	{ERROR, error()},	{E,nothing()},		{OK,nothing()}	},		//FRACTION
-										{ {EXP,nothing()},	{EXP,nothing()},	{SIGN_EXP,nothing()},	{SIGN_EXP,nothing()}, {ERROR,error()},	{ERROR,error()},	{ERROR,error()}	},		//E
-										{ {EXP,nothing()},	{EXP,nothing()},	{ERROR,error()},		{ERROR,error()},	{ERROR,error()},	{ERROR,error()},	{ERROR,error()} },		//SIGN_EXP
-										{ {EXP,nothing()},  {EXP,nothing()},	{ERROR,error()},		{ERROR,error()},	{ERROR,error()},	{ERROR,error()},	{OK,nothing() }	},		//EXP
-										{ {ERROR,error()},	{ERROR,error()},	{ERROR,error()},		{ERROR,error()},	{ERROR,error()},	{ERROR,error()},	{ERROR,error()}	},		//ERROR    
-										{ {OK,nothing()},	{OK,nothing()},		{OK,nothing()},			{OK,nothing()},		{OK,nothing()},		{OK,nothing()},		{OK,nothing()}  }		//OK
+	#define TX(x) (static_cast<void (genericFSM::* ) (void)>(&numberFSM::x))
+	const cellType tableFSM[NQSTATES][NQEVENTS] = {
+
+										//ONENINE				//CERO					//SIGN_MINUS			//SIGN_PLUS				//POINT				//E					//OTHER				EOF_
+										{ {INT,TX(nothing)},	{CERO, TX(nothing)},	{SIGN_INT,TX(nothing)},	{ERROR,TX(error)},	{ERROR,TX(error)},		{ERROR,TX(error)},	{ERROR,TX(error)} ,	{ERROR,TX(error)}	},		//INIT
+										{ {INT,TX(nothing)},	{INT,TX(nothing)},		{ERROR,TX(error)},		{ERROR,TX(error)},	{POINT,TX(nothing)},	{E,TX(nothing)},	{OK,TX(nothing)} ,	{OK,TX(cycleOK)}	},		//INT
+										{ {INT,TX(nothing)},	{CERO, TX(nothing)},	{ERROR,TX(error)},		{ERROR,TX(error)},	{ERROR,TX(error)},		{ERROR,TX(error)},	{ERROR,TX(error)},	{ERROR,TX(error)	},		//SIGN_INT
+										{ {ERROR,TX(error)},	{ERROR, TX(error)},		{ERROR,TX(error)},		{ERROR,TX(error)},	{POINT,TX(nothing)},	{E,TX(nothing)},	{OK,TX(cycleOK)},	{OK,TX(cycleOK)}	},		//CERO
+										{ {FRACTION,TX(nothing)}, {FRACTION,TX(nothing)}, {ERROR,(error)},		{ERROR,TX(error)},	{ERROR, TX(error)},		{ERROR,TX(error)},	{ERROR,TX(error)},	{ERROR,TX(error)}	},		//POINT
+										{ {FRACTION,TX(nothing)}, {FRACTION,TX(nothing)}, {ERROR,TX(error)},	{ERROR,TX(error)},	{ERROR, TX(error)},		{E,TX(nothing)},	{OK,TX(cycleOK)},	{OK,TX(cycleOK)}	},		//FRACTION
+										{ {EXP,TX(nothing)},	{EXP,TX(nothing)},		{SIGN_EXP,TX(nothing)},	{SIGN_EXP,TX(nothing)}, {ERROR,TX(error)},	{ERROR,TX(error)},	{ERROR,TX(error)},	{ERROR,TX(error)}	},		//E
+										{ {EXP,TX(nothing)},	{EXP,TX(nothing)},		{ERROR,TX(error)},		{ERROR,TX(error)},	{ERROR,TX(error)},		{ERROR,TX(error)},	{ERROR,TX(error)},	{ERROR,TX(error)}	},		//SIGN_EXP
+										{ {EXP,TX(nothing)},	{EXP,TX(nothing)},		{ERROR,TX(error)},		{ERROR,TX(error)},	{ERROR,TX(error)},		{ERROR,TX(error)},	{OK,TX(cycleOK) },	{OK,TX(cycleOK)}	},		//EXP
+										{ {ERROR,TX(error)},	{ERROR,TX(error)},		{ERROR,TX(error)},		{ERROR,TX(error)},	{ERROR,TX(error)},		{ERROR,TX(error)},	{ERROR,TX(error)},	{ERROR,TX(error)}	},		//ERROR    
+										{ {OK,TX(cycleOK)},		{OK,TX(cycleOK)},		{OK,TX(cycleOK)},		{OK,TX(cycleOK)},	{OK,TX(cycleOK)},		{OK,TX(cycleOK)},	{OK,TX(cycleOK)},	{OK,TX(cycleOK)}	}		//OK
 									};
 
 };

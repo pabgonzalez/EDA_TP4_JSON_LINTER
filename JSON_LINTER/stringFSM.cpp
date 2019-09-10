@@ -1,8 +1,4 @@
-
 #include "stringFSM.h"
-
-using namespace std;
-using namespace std::placeholders;
 
 void stringFSM::cycle(void)
 {
@@ -12,39 +8,24 @@ void stringFSM::cycle(void)
 		events->getNextEvent();
 		if (events->getCurrentEvent() == '"')
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + QUOTE];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][QUOTE].nextState;
+			next(QUOTE);
 		}
 		else if (events->getCurrentEvent() == '\\')
 		{
-			cellType temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + BARRA_INV];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][BARRA_INV].nextState;
+			next(BARRA_INV);
 		}
 		else if (events->getCurrentEvent() == END_OF_FILE)
 		{
-			temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + EOF_];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][EOF_].nextState;
+			next(EOF_);
 		}
 		else if (events->getCurrentEvent() == '/' || events->getCurrentEvent() == 'b' || events->getCurrentEvent() == 'f' || events->getCurrentEvent() == 'n' ||
 			events->getCurrentEvent() == 'r' || events->getCurrentEvent() == 't' || events->getCurrentEvent() == '\\' || events->getCurrentEvent() == '"')
 		{
-			cellType temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + ESC];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][ESC].nextState;
+			next(ESC);
 		}
 		else
 		{
-			cellType temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + CHARAC];
-			auto f = bind(temp.action, this);
-			f();
-			state = tableFSM[state][CHARAC].nextState;
+			next(CHARAC);
 		}
 	}
 }
