@@ -33,10 +33,9 @@ void stringFSM::cycle(void)
 			auto f = bind(temp.action, this);
 			f();
 			state = tableFSM[state][EOF_].nextState;
-			endCycle = true;
 		}
 		else if (events->getCurrentEvent() == '/' || events->getCurrentEvent() == 'b' || events->getCurrentEvent() == 'f' || 
-			events->getCurrentEvent() == 'n' || events->getCurrentEvent() == 'r' || events->getCurrentEvent() == 't')
+			events->getCurrentEvent() == 'n' || events->getCurrentEvent() == 'r' || events->getCurrentEvent() == 't' || events->getCurrentEvent() == '\\' || events->getCurrentEvent() == '"')
 		{
 			cellType temp = pTableFSM[static_cast<unsigned int>(state) * columnCount + ESC];
 			auto f = bind(temp.action, this);

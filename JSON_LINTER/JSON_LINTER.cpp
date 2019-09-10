@@ -36,5 +36,6 @@ int main()
 	stringFSM fsmS(&myEvents);
 	fsmS.cycle();
 	cout << "ErrorStatus " << genericFSM::getErrorStatus() << endl;
-}
+	myEvents.printfNow();
 
+}

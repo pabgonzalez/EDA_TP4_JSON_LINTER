@@ -10,6 +10,7 @@ eventGenerator::eventGenerator()
 	cout << "Ingrese el nombre del archivo: ";
 	cin >> archivo;
 	archJSON.open(archivo, ifstream::in);
+	start.open(archivo);
 	if (archJSON.is_open() == true)
 	{
 		errorCode = NO_ERROR;
@@ -37,7 +38,7 @@ short eventGenerator::getNextEvent(void)
 	while (archJSON.eof() == false && event == NO_EVENT)
 	{
 		archJSON.get(c);
-		if (c == '\n' || c == '\r')
+		if (c == '\n')	//falta \r
 		{
 			lineNumber++;
 			countChars = 0;
@@ -77,12 +78,31 @@ int eventGenerator::getLineNumber(void)
 	return lineNumber;
 }
 
-char eventGenerator::getChar(void)
+char eventGenerator::getCurrentEvent(void)
 {
 	return c;
 }
 
-char eventGenerator::getCurrentEvent(void)
+void eventGenerator::printfNow(void)
 {
-	return c;
+	string line;
+	int count = 0;
+	while (start.good())
+	{
+		getline(start, line);
+		cout << ++count << "\t" << line << endl;
+		if (count == lineNumber)
+		{
+			cout << "\t";
+			for (int i = 0; i < countSpaces + countChars - 1; i++)
+			{
+				cout << " ";
+			}
+			for (int i = 0; i < countTabs; i++)
+			{
+				cout << "\t";
+			}
+			cout << "^" << endl;
+		}
+	}
 }

@@ -17,10 +17,11 @@ public:
 	short getNextEvent(void);
 	int getError(void); 
 	int getLineNumber(void);
-	char getChar(void);
 	char getCurrentEvent(void);
+	void printfNow(void);
 private:
 	ifstream archJSON;
+	ifstream start;
 	int lineNumber;
 	int errorCode;
 	char archivo[MAX_CHAR_NAME];

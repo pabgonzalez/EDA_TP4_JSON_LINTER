@@ -34,9 +34,9 @@ private:
 	bool endCycle;
 	#define TX(x) (static_cast<void (genericFSM::* ) (void)>(&stringFSM::x))
 	//												   QUOTE				 CHARAC				 BARRA_INV			   ESC				EOF_
-	const cellType tableFSM[SQSTATES][SQEVENTS] = { { {OK, TX(nothing)},  {CH, TX(nothing)},  {B_INV, TX(nothing)}, {CH, TX(nothing)}, {ERROR, TX(error)}  },	//INIT
-												  { {OK, TX(nothing)},  {CH, TX(nothing)},  {B_INV, TX(nothing)}, {CH, TX(nothing)}, {ERROR, TX(error)}  },		//CH
-												  { {ESC, TX(nothing)}, {ERROR, TX(error)}, {B_INV, TX(nothing)}, {ESC, TX(nothing)}, {ERROR, TX(error)} },		//B_INV
+	const cellType tableFSM[SQSTATES][SQEVENTS] = { { {OK, TX(cycleOK)},  {CH, TX(nothing)},  {B_INV, TX(nothing)}, {CH, TX(nothing)}, {ERROR, TX(error)}  },	//INIT
+												  { {OK, TX(cycleOK)},  {CH, TX(nothing)},  {B_INV, TX(nothing)}, {CH, TX(nothing)}, {ERROR, TX(error)}  },		//CH
+												  { {ESC, TX(nothing)}, {ERROR, TX(error)}, {ESC, TX(nothing)}, {ESC, TX(nothing)}, {ERROR, TX(error)} },		//B_INV
 												  { {OK, TX(nothing)},  {CH, TX(nothing)},  {B_INV, TX(nothing)}, {CH, TX(nothing)}, {ERROR, TX(error)}  },		//ESC
 												  { {OK, TX(cycleOK)},  {OK, TX(cycleOK)},  {OK, TX(cycleOK)},    {OK, TX(cycleOK)}, {OK, TX(cycleOK)}  },		//OK
 												  { {ERROR, TX(error)}, {ERROR, TX(error)}, {ERROR, TX(error)},   {ERROR, TX(error)}, {ERROR, TX(error)} } };	//ERROR
